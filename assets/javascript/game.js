@@ -61,6 +61,7 @@ document.onkeyup = function(event){
         showCorrectGuessesDOM();
 
         document.querySelector("#scoreBoard").style.display="block";
+        document.querySelector("#theme").style.display="block";
         document.querySelector("#result").style.display="block";
         gameStart = false;
     }
