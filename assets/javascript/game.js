@@ -10,7 +10,6 @@ var lives;
 var wins = 0;
 var losses = 0;
 var count;
-// var bands = ["MICHAEL JACKSON","SHAKIRA","MADONNA","MICHAEL JACKSON","SHANIA","RIHANNA","NIRVANA"];
 
 var band = [
     {name: "MICHAEL JACKSON", image: "http://cdn.smehost.net/michaeljacksoncom-uslegacyprod/wp-content/uploads/2017/04/mj_stage.jpg"},
