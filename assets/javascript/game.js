@@ -10,11 +10,11 @@ var lives;
 var wins = 0;
 var losses = 0;
 var count;
-
 var bands = ["MICHAEL JACKSON","SHAKIRA","MADONNA","MICHAEL JACKSON","SHANIA","RIHANNA","NIRVANA"];
 
 var htmlWord="";
 var htmlWrongWord="";
+var bgSound = new Audio("https://cs1.mp3.pm/listen/3239549/UHZZY2xhS0hXTjZqbUtmNEhrTkFhSVFZbFpSSzJPZ2ozR2Fyb2RYbmVWY0tCUEdJY29SOTNPUzcweFZGSWFCcXAvTXZpR1pLSlZPR2w2eExQOENZSkl2WTgrbnRaa255d0w2RkFaZWlXWDJFemc1K3M5REIzZUNBRll5NjMzSXk/Ludovico_Einaudi_-_I_giorni_(mp3.pm).mp3");
 
 document.onkeyup = function(event){
     console.log(event.key);
@@ -23,12 +23,15 @@ document.onkeyup = function(event){
         correctGuesses = [];
         wrongGuesses = [];
         hasWon = false;
-        lives = 10;
+        lives = 6;
         count = 0;
         htmlWord="";
         htmlWrongWord="";
 
         clearCavas();
+
+      
+        bgSound.play();
 
         currentWord = bands[index];
 
@@ -68,12 +71,13 @@ document.onkeyup = function(event){
                        //2. Match?
                        if(match()){
                             populateCorrectGuess();
-                            console.log("Array: "+correctGuesses);
+                            playSound("correct.wav");
                             showCorrectGuessesDOM();    
-                            console.log("count: "+count);
-                            console.log("length: "+currentWord.length);
                             if(count===currentWord.length){
                                 hasWon = true;
+                                bgSound.pause();
+                                bgSound.currentTime = 0;
+                                playSound("win.wav");
                                 wins++;
                                 showScoreBoardDOM();
                             }                   
@@ -82,8 +86,12 @@ document.onkeyup = function(event){
                        else{
                             lives--;
                             wrongGuesses.push(userChoice);
+                            playSound("wrong.wav");
                             showWrongGuessesDOM();
                             if(lives === 0){
+                                bgSound.pause();
+                                bgSound.currentTime = 0;
+                                playSound("lost.wav");
                                 losses++;
                                 showScoreBoardDOM();
                             }
@@ -95,6 +103,7 @@ document.onkeyup = function(event){
     
     function repeatLetter(){
         if(correctGuesses.indexOf(userChoice) > -1 || wrongGuesses.indexOf(userChoice) > -1){
+            playSound("repeat.wav");
             return true;
         }
         return false;
@@ -161,9 +170,12 @@ document.onkeyup = function(event){
        gameStart=true;
        if(index > bands.length-1){
           index = 0;
-       }
-        
-        
+       }     
+    }
+
+    function playSound(name){
+        var sound = new Audio("assets/audio/"+name);
+        sound.play();
     }
 
     function clearCavas(){
