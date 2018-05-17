@@ -1,75 +1,184 @@
+var gameStart = true;
 
-var bands = ["shakira ma","madonna","michaeljackson","shaniatwain","rihanna","coldplay"];
-
-var totalGuesses = 12;
-var remainingGuesses = totalGuesses;
-var guessedLetters = [];
-var win = 0;
-var loss = 0;
-var x = -1;
+var index =0;
+var correctGuesses;
+var wrongGuesses;
+var currentWord;
 var userChoice;
-var letterCorrectGuess =0;
-var wrongGuesses = [];
-var lives = 13;
+var hasWon;
+var lives;
+var wins = 0;
+var losses = 0;
+var count;
+
+var bands = ["MICHAEL JACKSON","SHAKIRA","MADONNA","MICHAEL JACKSON","SHANIA","RIHANNA","NIRVANA"];
+
+var htmlWord="";
+var htmlWrongWord="";
+
 document.onkeyup = function(event){
-  
-    
+    console.log(event.key);
+   
+    if(gameStart){       
+        correctGuesses = [];
+        wrongGuesses = [];
+        hasWon = false;
+        lives = 10;
+        count = 0;
+        htmlWord="";
+        htmlWrongWord="";
 
-   // console.log("Game started!");
-    var currentWord = bands[0];
-    if(x === -1){
+        clearCavas();
+
+        currentWord = bands[index];
+
         for(var j = 0; j<currentWord.length;j++){
-            console.log("_");
-            guessedLetters.push("_");
+            if(currentWord[j]=== " "){
+                count++;
+                correctGuesses.push(null);
+            }
+            else{
+                correctGuesses.push("_");
+            }
+            
         }
+        console.log(correctGuesses);
+        showCorrectGuessesDOM();
+
+        document.querySelector("#scoreBoard").style.display="block";
+        document.querySelector("#result").style.display="block";
+        gameStart = false;
     }
+    
+    //game played
+    //keyup was not for game start
+    else{
+        //1. user presses a key
+        //2. check whether valid key pressed
+        userChoice = event.key.toUpperCase();
+        
 
-    if(x>-1){
-        userChoice = event.key;
-      
-        if(letterCorrectGuess<bands[0].length || lives>0){
-
-
-             if(bands[0].indexOf(userChoice)>-1){
-                 if(guessedLetters.indexOf(userChoice) < 0){
-                    for(var i = 0; i < bands[0].length;i++){
-                        if(bands[0][i] === userChoice){
-                            guessedLetters[i] = userChoice;
-                            letterCorrectGuess++;
-                            console.log(letterCorrectGuess);
-                            if(letterCorrectGuess === bands[0].length){
-                                console.log(letterCorrectGuess);
-                                console.log("you won");
-                                win++;
-                                console.log("Win:"+win);
+        //loop until user dies or won
+        if(lives > 0 || !hasWon){
+            //valid input?
+            if(userChoice.charCodeAt(0) >= 65 && userChoice.charCodeAt(0) <= 90 && userChoice.length===1){
+                    console.log("valid");
+                    //1. Repeatition of letters?
+                   if(!repeatLetter(userChoice)){
+                       //2. Match?
+                       if(match()){
+                            populateCorrectGuess();
+                            console.log("Array: "+correctGuesses);
+                            showCorrectGuessesDOM();    
+                            console.log("count: "+count);
+                            console.log("length: "+currentWord.length);
+                            if(count===currentWord.length){
+                                hasWon = true;
+                                wins++;
+                                showScoreBoardDOM();
+                            }                   
+                       }
+                       //3. Mismatch?
+                       else{
+                            lives--;
+                            wrongGuesses.push(userChoice);
+                            showWrongGuessesDOM();
+                            if(lives === 0){
+                                losses++;
+                                showScoreBoardDOM();
                             }
-                        }
-                    }
-                 }
-                 else{
-                    console.log("You already chose "+userChoice);
-                 }
-                    console.log(guessedLetters);
-              }
+                       }                           
+                   }
+            }           
+        }
+    }
+    
+    function repeatLetter(){
+        if(correctGuesses.indexOf(userChoice) > -1 || wrongGuesses.indexOf(userChoice) > -1){
+            return true;
+        }
+        return false;
+    }
 
-              else{
-                  if(wrongGuesses.indexOf(userChoice)<0){
-                    wrongGuesses.push(userChoice);
-                    console.log("Wrong guess:"+ wrongGuesses);
-                    lives--;
-                    console.log("Lives:"+lives);
-                    if(lives === 0){
-                        console.log("You lose");
-                        loss++;
-                        console.log("Lose:"+loss);
-                    }
-                  }
-                  else{
-                    console.log("You already chose "+userChoice);
-                  }                
-              }
+    function match(){
+        if(currentWord.indexOf(userChoice)>-1){
+           return true;
         }
     }
 
-    x=0;
-};
+    function populateCorrectGuess(){
+        for(var i = 0; i < currentWord.length; i++){
+            if(currentWord[i] === userChoice){
+                correctGuesses[i] = userChoice;
+                count++;
+            }
+          
+        }
+    }
+
+    function showCorrectGuessesDOM(){
+        htmlWord = "";
+        correctGuesses.forEach(function(element){
+            if(element === null){
+                htmlWord =htmlWord+"&nbsp;&nbsp;&nbsp;";
+                // count++;
+            }else{
+                htmlWord = htmlWord+"&nbsp;"+element;
+            }
+          
+           
+        });
+        document.querySelector("#word").innerHTML =htmlWord;
+    }
+  
+    function showWrongGuessesDOM(){
+        htmlWrongWord = "";
+        wrongGuesses.forEach(function(element){
+            htmlWrongWord = htmlWrongWord+" "+element;
+        });
+        document.querySelector("#guesses").innerHTML = lives;
+        document.querySelector("#letters").innerHTML =htmlWrongWord;
+    }
+
+    function showScoreBoardDOM(){
+        var correctAnswerHtml = "The correct answer is: "+currentWord;
+        if(hasWon){
+            var winHtml = "CONGRATULATIONS! YOU HAVE SAVED HIM :) <br>"+ correctAnswerHtml+
+                          "<br>Press on any key to play again";
+                            
+            document.querySelector("#winMsg").innerHTML = winHtml;
+            document.querySelector("#winMsg").style.display="block";
+            document.querySelector("#win").innerHTML = wins;
+        }
+       else{
+           var loseHtml = "OH NO! YOU HAVE HANGED HIM <br>"+ correctAnswerHtml+
+                        "<br>Press on any key to play again";
+           document.querySelector("#loseMsg").innerHTML = loseHtml;
+           document.querySelector("#loseMsg").style.display="block";
+           document.querySelector("#loss").innerHTML = losses;
+       }
+       index++;
+       gameStart=true;
+       if(index > bands.length-1){
+          index = 0;
+       }
+        
+        
+    }
+
+    function clearCavas(){
+        document.querySelector("#msg").style.display="none";
+        document.querySelector("#winMsg").style.display="none";
+        document.querySelector("#loseMsg").style.display="none";
+        document.querySelector("#word").innerHTML =htmlWord;
+        document.querySelector("#guesses").innerHTML = lives;
+        document.querySelector("#letters").innerHTML =htmlWrongWord;
+    }
+}
+
+
+
+
+
+
+

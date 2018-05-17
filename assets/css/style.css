@@ -3,7 +3,7 @@ html, body{
     margin:0;
     padding:0;
     box-sizing: border-box;
-    font-size:18px;
+    font-size:20px;
 }
 
 h1 {
@@ -14,6 +14,7 @@ h1 {
     margin-left: 0;
     margin-right: 0;
     font-weight: bold;
+    text-align: center;
 }
 
 p{
@@ -28,4 +29,39 @@ p{
     width:960px;
     max-width: 100%;
     margin:10px auto;
+}
+
+#msg{
+    border: 4px solid salmon;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    padding:20px;
+}
+
+#scoreBoard, #result{
+    border: 4px solid salmon;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    padding:20px;
+    display: none;
+    width:44%;
+    float:left;
+    height:420px;
+}
+
+#letters{
+    border: 2px solid salmon;
+    padding:20px;
+    border-radius: 10px;
+    width:200px;
+}
+
+
+#result{
+    height:420px;
+    margin-left:10px;
+}
+
+#winMsg, #loseMsg{
+    display: none;
 }

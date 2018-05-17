@@ -9,15 +9,44 @@
 </head>
 <body>
   <div class="container">
-        <p>Press any key to get started</p>
-        <p>Wins</p>
-        <p id="win"></p>
-        <p>Current Word</p>
-        <p id="word"></p>
-        <p>Number of guesses remaining</p>
-        <p id="guesses"></p>
-        <p>Letters already guessed</p>
-        <p id="letters"></p>
+        <h1>HANGMAN</h1>
+        <h1>Theme: Band/Singers</h1>
+        <h1>Type letters on keyboard, and predict the word!</h1>
+        <div id="msg">
+            Press any key to get started
+        </div>
+       
+        <div id ="scoreBoard">
+            <p>What's the Word?</p>
+            <p id="word"></p>
+
+            <p>Wins</p>
+            <p id="win">0</p>
+
+            <p>Losses</p>
+            <p id="loss">0</p>
+
+            <p>Number of guesses remaining</p>
+            <p id="guesses">10</p>
+
+            <p>Letters already guessed</p>
+            <p id="letters"></p>
+        </div>
+        <div id="result">
+            <div id = "winMsg">
+                   
+
+            </div>
+            <div id = "loseMsg">
+                   
+
+            </div>
+            <!-- <p id="winMsg">CONGRATULATIONS! YOU HAVE SAVED HIM :)</p>
+            <p id="loseMsg">OH NO! YOU HAVE HANGED HIM</p>
+            <p id="answer"></p>
+            <p id="playAgain">Press on any key to play again</p> -->
+        </div>
+
    </div>
 
     <script type="text/javascript" src="assets/javascript/game.js"></script>
