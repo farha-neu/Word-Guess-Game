@@ -65,3 +65,9 @@ p{
 #winMsg, #loseMsg{
     display: none;
 }
+
+.band-img{
+    width:200px;
+    margin:0 20px;
+    height:auto;
+}
