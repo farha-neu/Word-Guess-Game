@@ -12,13 +12,22 @@ var losses = 0;
 var count;
 
 var band = [
-    {name: "MICHAEL JACKSON", image: "http://cdn.smehost.net/michaeljacksoncom-uslegacyprod/wp-content/uploads/2017/04/mj_stage.jpg"},
-    {name: "SHAKIRA", image: "https://suntimesmedia.files.wordpress.com/2017/12/esp-mus_latin_american_music_awards-nominaciones_71368687-e1514387448532.jpg?w=763"},
-    {name: "MADONNA", image: "https://upload.wikimedia.org/wikipedia/commons/3/38/Madonna_3_by_David_Shankbone-2.jpg"},
-    {name: "NIRVANA", image:"https://upload.wikimedia.org/wikipedia/commons/f/fe/Creed_%28band%29_in_2002.jpg"},
-    {name: "COLD PLAY", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Coldplay_-_Global-Citizen-Festival_Hamburg_14.jpg/1280px-Coldplay_-_Global-Citizen-Festival_Hamburg_14.jpg"}, 
-    {name: "SHANIA TWAIN", image: "https://upload.wikimedia.org/wikipedia/commons/0/08/ShaniaTwainJune2011_%28cropped1%29.jpg"},
-    {name: "RIHANNA", image: "https://c1.staticflickr.com/8/7714/27876724745_637288766f_b.jpg"}
+    {name: "WHITNEY HOUSTON", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Whitney_Houston_Welcome_Home_Heroes_1_cropped.jpg/220px-Whitney_Houston_Welcome_Home_Heroes_1_cropped.jpg"},
+    {name: "MICHAEL JACKSON", image: "http://m.blog.hu/ku/kulturpart/image/2014-06-25/7935220/michaeljackson_2414920b.jpg"},
+    {name: "BON JOVI", image:"http://ultimateclassicrock.com/files/2014/10/BonJovi.jpg?w=980&q=75"},
+    {name: "MADONNA", image:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Madonna_Rebel_Heart_Tour_2015_-_Stockholm_%2823051472299%29_%28cropped_2%29.jpg/1200px-Madonna_Rebel_Heart_Tour_2015_-_Stockholm_%2823051472299%29_%28cropped_2%29.jpg"},
+    {name: "METALLICA", image: "https://pmcvariety.files.wordpress.com/2017/05/metallica.jpg?w=1000&h=562&crop=1"},
+    {name: "EMINEM", image: "http://www.southpawer.com/wp-content/uploads/2017/12/best-of-eminem-playlist.jpg"},
+    {name: "THE CRANBERRIES", image: "http://www.elsalvadortimes.com/media/elsalvadortimes/images/2018/03/08/2018030809071378427.jpg"},
+    {name: "PEARL JAM", image: "https://www.grammy.com/sites/com/files/styles/news_detail_header/public/gettyimages-688541270.jpg?itok=LU_oKUst"},
+    {name: "RED HOT CHILI PEPPERS", image: "https://img.huffingtonpost.com/asset/571e20051900002d0056c1b4.jpeg?cache=st9zw21jxi&ops=crop_0_14_1800_974,scalefit_720_noupscale"},
+    {name: "NIRVANA", image:"https://live-arena.com/wp-content/uploads/2018/01/nirvana-quatre-de%CC%81mo-ine%CC%81dites-refont-surface-sur-Youtube.jpg"},
+    {name: "THE SMASHING PUMPKINS", image: "https://consequenceofsound.files.wordpress.com/2018/02/smashing-pumpkins1.png?w=807"}, 
+    {name: "RADIOHEAD", image: "https://www.grammy.com/sites/com/files/styles/image_landscape_hero/public/radiohead_hero_688547436.jpg?itok=ZvmweXnH"},
+    {name: "GREEN DAY", image: "http://www.imer.mx/reactor/wp-content/uploads/sites/40/rs-green-day-573649b5-53b3-43c5-91e6-858db92cfde0.jpg"},
+    {name: "BECK", image: "https://img.wennermedia.com/featured-promo-724/beck-new-song-listen-2017-4a8aff07-1161-4374-8245-631e4a4add6d.jpg"}, 
+    {name: "SUBLIME", image: "https://www.billboard.com/files/styles/article_main_image/public/stylus/105814-sublime_617_409.jpg"},
+    {name: "SOUND GARDEN", image: "https://img.wennermedia.com/article-leads-horizontal/rs-173988-85847547.jpg"}
   ]; 
 
 
@@ -40,10 +49,10 @@ document.onkeyup = function(event){
 
         clearCavas();
 
-      
+        //play background music
         bgSound.play();
 
-        // currentWord = bands[index];
+
         currentWord = band[index].name;
        
 
@@ -61,7 +70,6 @@ document.onkeyup = function(event){
         showCorrectGuessesDOM();
 
         document.querySelector("#scoreBoard").style.display="block";
-        document.querySelector("#theme").style.display="block";
         document.querySelector("#result").style.display="block";
         gameStart = false;
     }
@@ -74,7 +82,7 @@ document.onkeyup = function(event){
         userChoice = event.key.toUpperCase();
         
 
-        //loop until user dies or won
+        //loop until user loses all lives or wins
         if(lives > 0 || !hasWon){
             //valid input?
             if(event.keyCode >= 65 && event.keyCode <= 90){
@@ -146,7 +154,6 @@ document.onkeyup = function(event){
         correctGuesses.forEach(function(element){
             if(element === null){
                 htmlWord =htmlWord+"&nbsp;&nbsp;&nbsp;";
-                // count++;
             }else{
                 htmlWord = htmlWord+"&nbsp;"+element;
             }
@@ -166,18 +173,21 @@ document.onkeyup = function(event){
     }
 
     function showScoreBoardDOM(){
-        var correctAnswerHtml = "The correct answer is: "+currentWord;
+        document.querySelector("#initImage").style.display="none";
+        document.querySelector("#theme").style.display="none";
+        var correctAnswerHtml = "CORRECT WORD: "+currentWord;
         var img = "<img src='"+band[index].image+"' class='band-img' />";
         if(hasWon){
-            var winHtml = "CONGRATULATIONS! YOU HAVE SAVED HIM :) <br>"+img+"<br>Press spacebar to play again";
+            var winHtml = "<span class='winLoseHeader'>CONGRATULATIONS!!!</span><br>"
+                          +"<br>CORRECT GUESS :) "+img+"<br><p class='play'>Press spacebar to play again</p>";
                             
             document.querySelector("#winMsg").innerHTML = winHtml;
             document.querySelector("#winMsg").style.display="block";
             document.querySelector("#win").innerHTML = wins;
         }
        else{
-           var loseHtml = "OH NO! YOU HAVE HANGED HIM <br>"+ correctAnswerHtml+
-                        "<br>"+img+"<br>Press spacebar to play again";
+           var loseHtml ="<span class='winLoseHeader'>OH NO :( TRY AGAIN!</span><br><br>"+ correctAnswerHtml+
+                        "<br>"+img+"<br><p class='play'>Press spacebar to play again</p>";
            document.querySelector("#loseMsg").innerHTML = loseHtml;
            document.querySelector("#loseMsg").style.display="block";
            document.querySelector("#loss").innerHTML = losses;
@@ -195,6 +205,8 @@ document.onkeyup = function(event){
     }
 
     function clearCavas(){
+        document.querySelector("#initImage").style.display="block";
+        document.querySelector("#theme").style.display="block";
         document.querySelector("#msg").style.display="none";
         document.querySelector("#icon").style.display="none";
         document.querySelector("#winMsg").style.display="none";
