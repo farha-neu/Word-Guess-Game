@@ -169,8 +169,7 @@ document.onkeyup = function(event){
         var correctAnswerHtml = "The correct answer is: "+currentWord;
         var img = "<img src='"+band[index].image+"' class='band-img' />";
         if(hasWon){
-            var winHtml = "CONGRATULATIONS! YOU HAVE SAVED HIM :) <br>"+ correctAnswerHtml+
-                          "<br>"+img+"<br>Press spacebar to play again";
+            var winHtml = "CONGRATULATIONS! YOU HAVE SAVED HIM :) <br>"+img+"<br>Press spacebar to play again";
                             
             document.querySelector("#winMsg").innerHTML = winHtml;
             document.querySelector("#winMsg").style.display="block";
@@ -197,6 +196,7 @@ document.onkeyup = function(event){
 
     function clearCavas(){
         document.querySelector("#msg").style.display="none";
+        document.querySelector("#icon").style.display="none";
         document.querySelector("#winMsg").style.display="none";
         document.querySelector("#loseMsg").style.display="none";
         document.querySelector("#word").innerHTML =htmlWord;

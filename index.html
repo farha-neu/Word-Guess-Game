@@ -5,16 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Graduate" rel="stylesheet"> 
     <title>Word Guess Game</title>
 </head>
 <body>
   <div class="container">
-        <h1>HANGMAN</h1>
-        <h1 id="theme">Theme: Band/Singers</h1>
-        <h1>Type letters on keyboard, and predict the word!</h1>
+      <div class="initial">
+        <h1 class="header"><span>H</span><span>A</span><span>N</span><span>G</span><span>M</span><span>A</span><span>N</span></h1>
+        <p id="theme" class="subheader">Theme: Band/Singers</p>
+        <p class="subheader" id="guessingHeader">Guess the letters, and spell the word!</p>
         <div id="msg">
-            Press space bar to get started
+            PRESS SPACEBAR TO GET STARTED!
         </div>
+        <img src="assets/images/icon.png" alt="icon img" id="icon">
+      </div>
        
         <div id ="scoreBoard">
             <p>What's the Word?</p>
@@ -33,14 +38,13 @@
             <p id="letters"></p>
         </div>
         <div id="result">
+            <div id="hangman">
+                <!-- hangman will be drawn here-->
+            </div>
             <div id = "winMsg">
             </div>
             <div id = "loseMsg">
             </div>
-            <!-- <p id="winMsg">CONGRATULATIONS! YOU HAVE SAVED HIM :)</p>
-            <p id="loseMsg">OH NO! YOU HAVE HANGED HIM</p>
-            <p id="answer"></p>
-            <p id="playAgain">Press on any key to play again</p> -->
         </div>
 
    </div>
