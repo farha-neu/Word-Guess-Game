@@ -115,6 +115,8 @@ p{
     margin-bottom:0px;
     height:auto;
     border-radius:25px;
+    display: block;
+    max-width: 100%;
 }
 
 #theme{
