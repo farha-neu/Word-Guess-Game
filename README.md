@@ -1,2 +1,2 @@
 # Word-Guess-Game 
-https://farha-neu.github.io/Word-Guess-Game/
+https://farhajawed.github.io/Word-Guess-Game/
